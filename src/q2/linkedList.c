@@ -59,3 +59,54 @@ void deleteAfter(listElement* after){
   free(delete->data);
   free(delete);
 }
+
+//int length(listElement* list)  - Returns the number of elements in a linked list
+int length(listElement* list){
+  if(list == NULL){
+	  return 0;
+  }
+  int counter;
+  counter = 0;
+  listElement* current = list;
+  while(current != NULL){
+    current = current -> next;
+    counter++;
+  }
+  return counter;
+}
+
+void push(listElement** list, char* data, size_t size){
+  listElement* temp = createEl(data, size);
+  temp->next = *list;
+  *list = temp;
+}
+
+listElement* pop(listElement** list){
+  if(length(*list) == 0){
+	  return *list;
+  }
+  listElement* temp = *list;
+  if(temp){
+    *list = temp->next;
+  }
+  return temp;
+}
+
+void enqueue(listElement** list, char* data, size_t size){
+  listElement* temp = createEl(data, size);
+  temp->next = *list;
+  *list = temp;
+}
+
+listElement* dequeue(listElement* list){ //to make sure it is not null
+  if(list == NULL){
+    return list;
+  }
+  listElement* current = list;
+  while(current->next->next != NULL){
+    current = current -> next;
+  }
+  listElement* temp = current -> next;
+  current -> next = NULL;
+  return temp;
+}
